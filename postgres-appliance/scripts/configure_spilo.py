@@ -34,7 +34,10 @@ PROVIDER_UNSUPPORTED = "unsupported"
 USE_KUBERNETES = os.environ.get('KUBERNETES_SERVICE_HOST') is not None
 KUBERNETES_DEFAULT_LABELS = '{"application": "spilo"}'
 PATRONI_DCS = ('kubernetes', 'zookeeper', 'exhibitor', 'consul', 'etcd3', 'etcd')
-AUTO_ENABLE_WALG_RESTORE = ('WAL_S3_BUCKET', 'WALE_S3_PREFIX', 'WALG_S3_PREFIX', 'WALG_AZ_PREFIX', 'WALG_SSH_PREFIX')
+AUTO_ENABLE_WALG_RESTORE = (
+    'WAL_S3_BUCKET', 'WALE_S3_PREFIX', 'WALG_S3_PREFIX', 'WALG_AZ_PREFIX', 'WALG_SSH_PREFIX',
+    'WALG_SWIFT_PREFIX',
+)
 WALG_SSH_NAMES = ['WALG_SSH_PREFIX', 'SSH_PRIVATE_KEY_PATH', 'SSH_USERNAME', 'SSH_PORT']
 
 
@@ -781,7 +784,10 @@ def write_wale_environment(placeholders, prefix, overwrite):
     swift_names = ['WALE_SWIFT_PREFIX', 'SWIFT_AUTHURL', 'SWIFT_TENANT', 'SWIFT_TENANT_ID', 'SWIFT_USER',
                    'SWIFT_USER_ID', 'SWIFT_USER_DOMAIN_NAME', 'SWIFT_USER_DOMAIN_ID', 'SWIFT_PASSWORD',
                    'SWIFT_AUTH_VERSION', 'SWIFT_ENDPOINT_TYPE', 'SWIFT_REGION', 'SWIFT_DOMAIN_NAME', 'SWIFT_DOMAIN_ID',
-                   'SWIFT_PROJECT_NAME', 'SWIFT_PROJECT_ID', 'SWIFT_PROJECT_DOMAIN_NAME', 'SWIFT_PROJECT_DOMAIN_ID']
+                   'SWIFT_PROJECT_NAME', 'SWIFT_PROJECT_ID', 'SWIFT_PROJECT_DOMAIN_NAME', 'SWIFT_PROJECT_DOMAIN_ID',
+                   'WALG_SWIFT_PREFIX', 'OS_AUTH_URL', 'OS_PROJECT_ID', 'OS_PROJECT_NAME', 'OS_PROJECT_DOMAIN_NAME',
+                   'OS_PROJECT_DOMAIN_ID', 'OS_USERNAME', 'OS_USER_DOMAIN_NAME', 'OS_PASSWORD', 'OS_REGION_NAME',
+                   'OS_INTERFACE', 'OS_IDENTITY_API_VERSION']
     ssh_names = WALG_SSH_NAMES
     walg_names = ['WALG_DELTA_MAX_STEPS', 'WALG_DELTA_ORIGIN', 'WALG_DOWNLOAD_CONCURRENCY',
                   'WALG_UPLOAD_CONCURRENCY', 'WALG_UPLOAD_DISK_CONCURRENCY', 'WALG_DISK_RATE_LIMIT',
@@ -853,7 +859,7 @@ def write_wale_environment(placeholders, prefix, overwrite):
         elif wale.get('WAL_GCS_BUCKET'):
             wale['WAL_GS_BUCKET'] = wale['WAL_GCS_BUCKET']
         write_envdir_names = gs_names + walg_names
-    elif wale.get('WAL_SWIFT_BUCKET') or wale.get('WALE_SWIFT_PREFIX'):
+    elif wale.get('WAL_SWIFT_BUCKET') or wale.get('WALE_SWIFT_PREFIX') or wale.get('WALG_SWIFT_PREFIX'):
         write_envdir_names = swift_names
     elif wale.get("WALG_AZ_PREFIX"):
         azure_auth = []

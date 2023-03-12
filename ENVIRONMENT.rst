@@ -80,6 +80,18 @@ Environment Configuration Settings
 - **SWIFT_PROJECT_DOMAIN_NAME**:
 - **SWIFT_PROJECT_DOMAIN_ID**:
 - **WALE_SWIFT_PREFIX**: (optional) the full path to the backup location on the Swift Storage in the format swift://bucket-name/very/long/path. If not specified Spilo will generate it from WAL_SWIFT_BUCKET.
+- **OS_AUTH_URL**: see wal-g documentation  https://github.com/wal-g/wal-g/blob/master/docs/STORAGES.md#swift
+- **OS_PROJECT_ID**:
+- **OS_PROJECT_NAME**:
+- **OS_PROJECT_DOMAIN_NAME**:
+- **OS_PROJECT_DOMAIN_ID**:
+- **OS_USERNAME**:
+- **OS_USER_DOMAIN_NAME**:
+- **OS_PASSWORD**:
+- **OS_REGION_NAME**:
+- **OS_INTERFACE**:
+- **OS_IDENTITY_API_VERSION**:
+- **WALG_SWIFT_PREFIX**: (optional) the full path to the backup location on the Swift Storage in the format swift://bucket-name/very/long/path. If not specified Spilo will generate it from WAL_SWIFT_BUCKET.
 - **SSH_USERNAME**: (optional) the username for WAL backups.
 - **SSH_PORT**: (optional) the ssh port for WAL backups.
 - **SSH_PRIVATE_KEY_PATH**: (optional) the path to the private key used for WAL backups.
